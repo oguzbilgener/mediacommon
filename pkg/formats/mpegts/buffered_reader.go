@@ -1,6 +1,7 @@
 package mpegts
 
 import (
+	"encoding/hex"
 	"fmt"
 	"io"
 )
@@ -8,14 +9,12 @@ import (
 // BufferedReader is a chunked reader optimized for MPEG-TS.
 type BufferedReader struct {
 	r io.Reader
-	// chunk    []byte
 }
 
 // NewBufferedReader allocates a BufferedReader.
 func NewBufferedReader(r io.Reader) *BufferedReader {
 	return &BufferedReader{
 		r: r,
-		// chunk: make([]byte, 188),
 	}
 }
 
@@ -28,25 +27,7 @@ func (r *BufferedReader) Read(p []byte) (int, error) {
 		}
 	}
 
+	fmt.Printf("Read %d bytes:\n%s\n", n, hex.Dump(p[:n]))
+
 	return n, nil
-
-	// if r.midbufpos < len(r.midbuf) {
-	// 	n := copy(p, r.midbuf[r.midbufpos:])
-	// 	r.midbufpos += n
-	// 	return n, nil
-	// }
-
-	// mn, err := r.r.Read(r.midbuf[:cap(r.midbuf)])
-	// if err != nil {
-	// 	return 0, err
-	// }
-
-	// if (mn % 188) != 0 {
-	// 	return 0, fmt.Errorf("received packet with size %d not multiple of 188", mn)
-	// }
-
-	// r.midbuf = r.midbuf[:mn]
-	// n := copy(p, r.midbuf)
-	// r.midbufpos = n
-	// return n, nil
 }
