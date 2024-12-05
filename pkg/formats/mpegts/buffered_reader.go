@@ -11,13 +11,15 @@ type BufferedReader struct {
 	r         io.Reader
 	midbuf    []byte
 	midbufpos int
+	target    bool
 }
 
 // NewBufferedReader allocates a BufferedReader.
-func NewBufferedReader(r io.Reader) *BufferedReader {
+func NewBufferedReader(r io.Reader, target bool) *BufferedReader {
 	return &BufferedReader{
 		r:      r,
 		midbuf: make([]byte, 0, 1500),
+		target: target,
 	}
 }
 
@@ -38,7 +40,9 @@ func (r *BufferedReader) Read(p []byte) (int, error) {
 		return 0, fmt.Errorf("received packet with size %d not multiple of 188", mn)
 	}
 
-	fmt.Printf("Read %d bytes:\n%s\n", mn, hex.Dump(r.midbuf[:mn]))
+	if r.target {
+		fmt.Printf("Read %d bytes:\n%s\n", mn, hex.Dump(r.midbuf[:mn]))
+	}
 
 	r.midbuf = r.midbuf[:mn]
 	n := copy(p, r.midbuf)
