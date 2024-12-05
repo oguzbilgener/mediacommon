@@ -38,7 +38,7 @@ func (r *BufferedReader) Read(p []byte) (int, error) {
 		return 0, fmt.Errorf("received packet with size %d not multiple of 188", mn)
 	}
 
-	fmt.Printf("Read %d bytes:\n%s\n", mn, hex.Dump(p[:mn]))
+	fmt.Printf("Read %d bytes:\n%s\n", mn, hex.Dump(r.midbuf[:mn]))
 
 	r.midbuf = r.midbuf[:mn]
 	n := copy(p, r.midbuf)
