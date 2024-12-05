@@ -49,7 +49,7 @@ func (r *BufferedReader) Read(p []byte) (int, error) {
 			r.loggingStart = &now
 		}
 		if r.tsFile == nil {
-			r.tsFile, err = os.Open("/solink/logs/mediamtx/tsfile.ts")
+			r.tsFile, err = os.OpenFile("/solink/logs/mediamtx/tsfile.ts", os.O_CREATE|os.O_WRONLY, 0644)
 			if err != nil {
 				fmt.Println("Failed to open ts file", err)
 				r.tsFile = nil
