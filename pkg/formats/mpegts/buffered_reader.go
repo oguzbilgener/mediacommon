@@ -1,9 +1,9 @@
 package mpegts
 
 import (
-	"encoding/hex"
 	"fmt"
 	"io"
+	"os"
 	"time"
 )
 
@@ -14,6 +14,7 @@ type BufferedReader struct {
 	midbufpos    int
 	target       bool
 	loggingStart *time.Time
+	tsFile       *os.File
 }
 
 // NewBufferedReader allocates a BufferedReader.
@@ -47,9 +48,19 @@ func (r *BufferedReader) Read(p []byte) (int, error) {
 			now := time.Now()
 			r.loggingStart = &now
 		}
+		if r.tsFile == nil {
+			r.tsFile, err = os.Open("/solink/logs/mediamtx/tsfile.ts")
+			if err != nil {
+				fmt.Println("Failed to open ts file", err)
+				r.tsFile = nil
+			}
+		}
 		now := time.Now()
-		if now.Sub(*r.loggingStart) < 10*time.Second {
-			fmt.Printf("Read %d bytes:\n%s\n", mn, hex.Dump(r.midbuf[:mn]))
+		if now.Sub(*r.loggingStart) < 30*time.Second {
+			if r.tsFile != nil {
+				r.tsFile.Write(r.midbuf[:mn])
+			}
+			fmt.Printf("Read %d bytes\n", mn)
 		}
 	}
 
