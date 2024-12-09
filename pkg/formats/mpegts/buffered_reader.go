@@ -60,7 +60,7 @@ func (r *BufferedReader) Read(p []byte) (int, error) {
 			if r.tsFile != nil {
 				r.tsFile.Write(r.midbuf[:mn])
 			}
-			fmt.Printf("Read %d bytes\n", mn)
+			// fmt.Printf("Read %d bytes\n", mn)
 		}
 	}
 
