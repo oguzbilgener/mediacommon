@@ -150,7 +150,7 @@ func (r *Reader) OnDataH264(track *Track, cb ReaderOnDataH26xFunc) {
 			pc += len(au[i])
 		}
 
-		fmt.Println("OnDataH264", au[0][0] == byte(h264.NALUTypeAccessUnitDelimiter), len(au), "|", pc, len(data), "|", len(au[0]))
+		// fmt.Println("OnDataH264", au[0][0] == byte(h264.NALUTypeAccessUnitDelimiter), len(au), "|", pc, len(data), "|", len(au[0]))
 
 		if au[0][0] == byte(h264.NALUTypeAccessUnitDelimiter) {
 			au = au[1:]
