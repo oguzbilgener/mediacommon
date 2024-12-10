@@ -118,9 +118,7 @@ outer:
 
 				if l != 0 {
 					fmt.Println("Copy from", start, "to ", delimStart)
-					if start == 114 {
-						fmt.Println(hex.Dump(buf[start : start+10]))
-					}
+					fmt.Println("from 114", hex.Dump(buf[start:start+10]))
 					ret[pos] = buf[start:delimStart]
 					pos++
 				}
@@ -138,9 +136,7 @@ outer:
 
 	if l != 0 {
 		fmt.Println("last Copy from", start, "to ", bl)
-		if start == 114 {
-			fmt.Println(hex.Dump(buf[start : start+10]))
-		}
+		fmt.Println(hex.Dump(buf[start : start+10]))
 		ret[pos] = buf[start:bl]
 	}
 
