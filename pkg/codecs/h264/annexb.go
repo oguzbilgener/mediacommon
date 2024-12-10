@@ -1,6 +1,7 @@
 package h264
 
 import (
+	"encoding/hex"
 	"errors"
 	"fmt"
 )
@@ -117,6 +118,9 @@ outer:
 
 				if l != 0 {
 					fmt.Println("Copy from ", start, " to ", delimStart)
+					if start == 114 {
+						fmt.Println(hex.Dump(buf[start : start+10]))
+					}
 					ret[pos] = buf[start:delimStart]
 					pos++
 				}
