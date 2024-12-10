@@ -98,7 +98,7 @@ outer:
 			n, MaxNALUsPerAccessUnit)
 	}
 
-	ret := make([][]byte, n)
+	ret := make([][]byte, n+1)
 	pos := 0
 	start = initZeroCount + 1
 	zeroCount = 0
