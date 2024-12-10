@@ -52,6 +52,9 @@ outer:
 	auSize := 0
 
 	for i := start; i < bl; i++ {
+		if i == 89 {
+			fmt.Println("at 89\n\n", hex.Dump(buf[i:i+5]))
+		}
 		switch buf[i] {
 		case 0:
 			if zeroCount == 0 {
@@ -67,7 +70,9 @@ outer:
 					if (auSize + l) > MaxAccessUnitSize {
 						return nil, fmt.Errorf("access unit size (%d) is too big, maximum is %d", auSize+l, MaxAccessUnitSize)
 					}
-					fmt.Println("Found new au at", start, delimStart, l)
+					if start != 4 {
+						fmt.Println("Found new au at", start, delimStart, l)
+					}
 					n++
 				} else {
 					fmt.Println("Found new au at but l is 0", start, delimStart, l)
