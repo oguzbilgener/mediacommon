@@ -52,9 +52,6 @@ outer:
 	auSize := 0
 
 	for i := start; i < bl; i++ {
-		if i == 99 {
-			fmt.Println("at 99\n\n", zeroCount, delimStart, start, hex.Dump(buf[i:i+6]))
-		}
 		switch buf[i] {
 		case 0:
 			if zeroCount == 0 {
@@ -63,7 +60,7 @@ outer:
 			zeroCount++
 
 		case 1:
-			if zeroCount == 2 || zeroCount == 3 {
+			if zeroCount == 2 || zeroCount == 3 || zeroCount == 4 {
 				l := delimStart - start
 
 				if l != 0 {
@@ -121,7 +118,7 @@ outer:
 			zeroCount++
 
 		case 1:
-			if zeroCount == 2 || zeroCount == 3 {
+			if zeroCount == 2 || zeroCount == 3 || zeroCount == 4 {
 				l = delimStart - start
 
 				if l != 0 {
