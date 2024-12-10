@@ -120,9 +120,14 @@ outer:
 					if start == 10 && delimStart == 110 {
 						fmt.Println(hex.Dump(buf[start : start+89]))
 						fmt.Println(hex.Dump(buf[start+90 : delimStart]))
+						ret[pos] = buf[start : start+89]
+						pos++
+						ret[pos] = buf[start+94 : delimStart]
+						pos++
+					} else {
+						ret[pos] = buf[start:delimStart]
+						pos++
 					}
-					ret[pos] = buf[start:delimStart]
-					pos++
 				}
 
 				start = i + 1
