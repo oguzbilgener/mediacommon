@@ -67,7 +67,10 @@ outer:
 					if (auSize + l) > MaxAccessUnitSize {
 						return nil, fmt.Errorf("access unit size (%d) is too big, maximum is %d", auSize+l, MaxAccessUnitSize)
 					}
+					fmt.Println("Found new au at", start, delimStart, l)
 					n++
+				} else {
+					fmt.Println("Found new au at but l is 0", start, delimStart, l)
 				}
 
 				auSize += l
@@ -98,7 +101,7 @@ outer:
 			n, MaxNALUsPerAccessUnit)
 	}
 
-	ret := make([][]byte, n+1)
+	ret := make([][]byte, n)
 	pos := 0
 	start = initZeroCount + 1
 	zeroCount = 0
@@ -120,14 +123,9 @@ outer:
 					if start == 10 && delimStart == 110 {
 						fmt.Println(hex.Dump(buf[start : start+89]))
 						fmt.Println(hex.Dump(buf[start+90 : delimStart]))
-						ret[pos] = buf[start : start+89]
-						pos++
-						ret[pos] = buf[start+94 : delimStart]
-						pos++
-					} else {
-						ret[pos] = buf[start:delimStart]
-						pos++
 					}
+					ret[pos] = buf[start:delimStart]
+					pos++
 				}
 
 				start = i + 1
