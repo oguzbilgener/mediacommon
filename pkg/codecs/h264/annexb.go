@@ -116,6 +116,7 @@ outer:
 				l = delimStart - start
 
 				if l != 0 {
+					fmt.Println("Copy from ", start, " to ", delimStart)
 					ret[pos] = buf[start:delimStart]
 					pos++
 				}
@@ -132,6 +133,7 @@ outer:
 	l = bl - start
 
 	if l != 0 {
+		fmt.Println("Copy from ", start, " to ", bl)
 		ret[pos] = buf[start:bl]
 	}
 
