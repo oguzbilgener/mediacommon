@@ -52,8 +52,8 @@ outer:
 	auSize := 0
 
 	for i := start; i < bl; i++ {
-		if i == 89 {
-			fmt.Println("at 89\n\n", hex.Dump(buf[i:i+5]))
+		if i == 100 {
+			fmt.Println("at 100\n\n", hex.Dump(buf[i:i+5]))
 		}
 		switch buf[i] {
 		case 0:
