@@ -117,7 +117,7 @@ outer:
 				l = delimStart - start
 
 				if l != 0 {
-					if start == 10 && delimStart == 100 {
+					if start == 10 && delimStart == 110 {
 						fmt.Println(hex.Dump(buf[start : start+89]))
 						fmt.Println(hex.Dump(buf[start+90 : delimStart]))
 					}
